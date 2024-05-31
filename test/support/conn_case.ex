@@ -20,14 +20,15 @@ defmodule TrellixWeb.ConnCase do
   using do
     quote do
       # The default endpoint for testing
-      @endpoint TrellixWeb.Endpoint
-
       use TrellixWeb, :verified_routes
+
+      import Phoenix.ConnTest
 
       # Import conveniences for testing with connections
       import Plug.Conn
-      import Phoenix.ConnTest
       import TrellixWeb.ConnCase
+
+      @endpoint TrellixWeb.Endpoint
     end
   end
 

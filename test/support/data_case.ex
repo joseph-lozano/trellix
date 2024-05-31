@@ -18,12 +18,12 @@ defmodule Trellix.DataCase do
 
   using do
     quote do
-      alias Trellix.Repo
-
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
       import Trellix.DataCase
+
+      alias Trellix.Repo
     end
   end
 
