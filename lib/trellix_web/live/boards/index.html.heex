@@ -1,0 +1,36 @@
+<p class="text-xl font-bold">New Board</p>
+
+<.form :let={f} for={@form} phx-submit="create">
+  <div class="form-control">
+    <label for={f[:name].id} class="label text-sm font-bold">Name</label>
+    <input
+      type="text"
+      id={f[:name].id}
+      class="input input-bordered w-full"
+      name={f[:name].name}
+      value={f[:name].value}
+    />
+    <p :for={{:name, msg} <- AshPhoenix.Form.errors(f)} class="text-error ml-1 text-sm">
+      <%= msg %>
+    </p>
+  </div>
+
+  <div class="py-5" />
+
+  <div class="flex w-full flex-row items-center justify-start gap-12">
+    <div class="form-control w-32">
+      <label class="label text-sm font-bold">
+        <span class="label-text">
+          Color
+        </span>
+        <input type="color" class="rounded" name={f[:color_hex].name} value={f[:color_hex].value} />
+        <p :for={{:color_hex, msg} <- AshPhoenix.Form.errors(f)} class="text-error ml-1 text-sm">
+          <%= msg %>
+        </p>
+      </label>
+    </div>
+    <button type="submit" class="btn btn-primary btn-sm btn-wide">
+      Create
+    </button>
+  </div>
+</.form>

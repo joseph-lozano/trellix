@@ -22,10 +22,15 @@ defmodule TrellixWeb.Router do
 
     get "/", PageController, :home
 
-    sign_in_route(register_path: "/register", reset_path: "/reset")
+    sign_in_route(register_path: "/register", reset_path: "/reset", on_mount: [{TrellixWeb.LiveUserAuth, :live_no_user}])
     sign_out_route AuthController
     auth_routes_for Trellix.Accounts.User, to: AuthController
     reset_route []
+
+    ash_authentication_live_session :authentication_required, on_mount: {TrellixWeb.LiveUserAuth, :live_user_required} do
+      live "/boards", BoardsLive.Index
+      live "/boards/:board_id", BoardsLive.Show
+    end
   end
 
   # Other scopes may use custom stacks.

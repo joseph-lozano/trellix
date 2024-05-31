@@ -10,7 +10,7 @@ import Config
 config :trellix,
   ecto_repos: [Trellix.Repo],
   generators: [timestamp_type: :utc_datetime],
-  ash_domains: [Trellix.Accounts]
+  ash_domains: [Trellix.Accounts, Trellix.Core]
 
 # Configures the endpoint
 config :trellix, TrellixWeb.Endpoint,
