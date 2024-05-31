@@ -59,6 +59,7 @@ defmodule Trellix.MixProject do
       {:ash_authentication, "~> 4.0"},
       {:ash_authentication_phoenix, "~> 2.0"},
       {:picosat_elixir, "~> 0.2.3"},
+      {:live_toast, "~> 0.6.3"},
       {:styler, "~> 0.11", only: [:dev, :test], runtime: false},
       {:tailwind_formatter, "~> 0.4.0", only: [:dev, :test], runtime: false}
     ]
@@ -76,7 +77,11 @@ defmodule Trellix.MixProject do
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
-      "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
+      "assets.setup": [
+        "cmd npm install --prefix assets --no-fund",
+        "tailwind.install --if-missing",
+        "esbuild.install --if-missing"
+      ],
       "assets.build": ["tailwind trellix", "esbuild trellix"],
       "assets.deploy": [
         "tailwind trellix --minify",

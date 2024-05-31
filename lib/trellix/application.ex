@@ -17,7 +17,8 @@ defmodule Trellix.Application do
       # Start a worker by calling: Trellix.Worker.start_link(arg)
       # {Trellix.Worker, arg},
       # Start to serve requests, typically the last entry
-      TrellixWeb.Endpoint
+      TrellixWeb.Endpoint,
+      {AshAuthentication.Supervisor, otp_app: :trellix}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

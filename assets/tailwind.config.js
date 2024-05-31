@@ -4,19 +4,18 @@
 const plugin = require("tailwindcss/plugin")
 const fs = require("fs")
 const path = require("path")
+const { default: daisyui } = require("daisyui")
 
 module.exports = {
   content: [
     "./js/**/*.js",
     "../lib/trellix_web.ex",
-    "../lib/trellix_web/**/*.*ex"
+    "../lib/trellix_web/**/*.*ex",
+    '../deps/live_toast/lib/**/*.*ex',
+    "../deps/ash_authentication_phoenix/**/*.*ex",
   ],
   theme: {
-    extend: {
-      colors: {
-        brand: "#FD4F00",
-      }
-    },
+    extend: { },
   },
   plugins: [
     require("@tailwindcss/forms"),
@@ -70,6 +69,12 @@ module.exports = {
           }
         }
       }, {values})
-    })
-  ]
+    }),
+    require("daisyui")
+  ],
+  daisyui: {
+    logs: false,
+    themes: ["emerald", "night"],
+    darkTheme: "night"
+  }
 }

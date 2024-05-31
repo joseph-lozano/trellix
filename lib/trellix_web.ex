@@ -21,7 +21,7 @@ defmodule TrellixWeb do
 
   def router do
     quote do
-      use Phoenix.Router, helpers: false
+      use Phoenix.Router, helpers: true
 
       # Import common connection and controller functions to use in pipelines
       import Phoenix.Controller
@@ -84,7 +84,6 @@ defmodule TrellixWeb do
       # HTML escaping functionality
       import Phoenix.HTML
       # Core UI components and translation
-      import TrellixWeb.CoreComponents
       import TrellixWeb.Gettext
 
       # Shortcut for generating JS commands

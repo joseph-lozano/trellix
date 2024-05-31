@@ -1,5 +1,7 @@
 defmodule Trellix.Repo do
-  use Ecto.Repo,
-    otp_app: :trellix,
-    adapter: Ecto.Adapters.Postgres
+  use AshPostgres.Repo, otp_app: :trellix
+
+  def installed_extensions do
+    ["uuid-ossp", "citext", "ash-functions"]
+  end
 end
