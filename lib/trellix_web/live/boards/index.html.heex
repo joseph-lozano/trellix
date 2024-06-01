@@ -23,7 +23,12 @@
         <span class="label-text">
           Color
         </span>
-        <input type="color" class="rounded" name={f[:color_hex].name} value={f[:color_hex].value} />
+        <input
+          type="color"
+          class="rounded"
+          name={f[:color_hex].name}
+          value={f[:color_hex].value || "#777777"}
+        />
         <p :for={{:color_hex, msg} <- AshPhoenix.Form.errors(f)} class="text-error ml-1 text-sm">
           <%= msg %>
         </p>
@@ -34,3 +39,22 @@
     </button>
   </div>
 </.form>
+
+<div class="mt-12 flex flex-wrap gap-8" id="boards" phx-update="stream">
+  <div
+    :for={{id, board} <- @streams.boards}
+    id={id}
+    class="card bg-base-100 relative w-48 hover:opacity-80"
+  >
+    <button
+      class="hero-trash absolute top-1 right-1 hover:text-error"
+      phx-click="delete"
+      phx-value-id={board.id}
+    >
+    </button>
+    <.link navigate={~p"/boards/#{board}"} class="card-body">
+      <div class="card-title"><%= board.name %></div>
+    </.link>
+    <div class="h-2.5 w-full" style={"background-color: #{board.color_hex}"} />
+  </div>
+</div>

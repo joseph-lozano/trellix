@@ -40,6 +40,10 @@ defmodule Trellix.Accounts.User do
     identity :unique_email, [:email]
   end
 
+  actions do
+    defaults [:read]
+  end
+
   policies do
     bypass AshAuthentication.Checks.AshAuthenticationInteraction do
       authorize_if always()

@@ -27,14 +27,15 @@ defmodule Trellix.Repo.Migrations.Boards do
             name: "boards_user_id_fkey",
             type: :uuid,
             prefix: "public"
-          )
+          ),
+          null: false
     end
 
-    create unique_index(:boards, ["name", "user_id"], name: "boards_unique_name_per_user_index")
+    create unique_index(:boards, ["user_id", "name"], name: "boards_unique_name_per_user_index")
   end
 
   def down do
-    drop_if_exists unique_index(:boards, ["name", "user_id"],
+    drop_if_exists unique_index(:boards, ["user_id", "name"],
                      name: "boards_unique_name_per_user_index"
                    )
 

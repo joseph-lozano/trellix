@@ -22,7 +22,9 @@ defmodule Trellix.Core.Board do
   end
 
   relationships do
-    belongs_to :user, Trellix.Accounts.User
+    belongs_to :user, Trellix.Accounts.User do
+      allow_nil? false
+    end
   end
 
   postgres do
@@ -31,21 +33,45 @@ defmodule Trellix.Core.Board do
   end
 
   actions do
-    default_accept [:name, :color_hex]
-    defaults [:create]
+    create :create do
+      accept [:name, :color_hex, :user_id]
+    end
+
+    read :get do
+      primary? true
+      get? true
+      argument :id, :uuid
+
+      filter expr(id == ^arg(:id))
+    end
+
+    read :all
+
+    destroy :destroy
   end
 
   code_interface do
     define :create
+    define :get, args: [:id]
+    define :all
+    define :delete, action: :destroy
   end
 
   policies do
     policy action(:create) do
       authorize_if always()
     end
+
+    policy action_type(:read) do
+      authorize_if relates_to_actor_via(:user)
+    end
+
+    policy action_type(:destroy) do
+      authorize_if relates_to_actor_via(:user)
+    end
   end
 
   identities do
-    identity :unique_name_per_user, [:user_id, :name], message: "A board with that name already exists"
+    identity :unique_name_per_user, [:name, :user_id], message: "A board with that name already exists"
   end
 end
